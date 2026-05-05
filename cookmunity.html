@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cookmmunity | Build Your Immunity Through Food</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green-50:#EAF3DE;--green-200:#97C459;--green-400:#639922;--green-600:#3B6D11;--green-800:#27500A;
+  --teal-50:#E1F5EE;--teal-200:#5DCAA5;--teal-400:#1D9E75;--teal-600:#0F6E56;
+  --amber-50:#FAEEDA;--amber-400:#BA7517;--amber-200:#EF9F27;
+  --gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-400:#888780;--gray-800:#444441;
+  --text-dark:#1a1a18;--text-mid:#3a3a36;--text-muted:#6b6b65;
+  --bg:#fafaf7;--bg-card:#ffffff;--radius:14px;--radius-sm:8px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-dark);line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,247,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--green-600);letter-spacing:-0.5px}
+.logo span{color:var(--teal-400)}
+.nav-links{display:flex;gap:0.25rem}
+.nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;padding:0.4rem 0.85rem;border-radius:20px;transition:all 0.2s}
+.nav-links a:hover{color:var(--green-600);background:var(--green-50)}
+.nav-cta{background:var(--green-600);color:#fff!important;border-radius:20px!important}
+.nav-cta:hover{background:var(--green-800)!important;color:#fff!important}
+.hamburger{display:none;font-size:1.4rem;cursor:pointer;color:var(--text-mid);border:none;background:none}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg-card);border-bottom:1px solid rgba(0,0,0,0.08);padding:1rem 2rem;flex-direction:column;gap:0.5rem;z-index:99}
+.mobile-menu a{font-size:1rem;font-weight:500;color:var(--text-mid);text-decoration:none;padding:0.6rem 0;border-bottom:1px solid var(--gray-50)}
+.mobile-menu.open{display:flex}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;background:linear-gradient(160deg,#f0f7e8 0%,#e5f5ee 40%,#fafaf7 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,153,34,0.12) 0%,transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(29,158,117,0.1) 0%,transparent 70%)}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green-50);border:1px solid rgba(59,109,17,0.2);color:var(--green-600);font-size:0.8rem;font-weight:600;letter-spacing:0.04em;padding:0.35rem 1rem;border-radius:20px;text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1;color:var(--text-dark);margin-bottom:1.25rem}
+.hero h1 em{font-style:italic;color:var(--green-600)}
+.hero p{font-size:1.1rem;color:var(--text-muted);max-width:460px;margin-bottom:2.5rem;line-height:1.7}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--green-600);color:#fff;padding:0.85rem 1.75rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--green-800);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--green-600);padding:0.85rem 1.75rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.9rem;border:2px solid rgba(59,109,17,0.3);transition:all 0.2s}
+.btn-outline:hover{border-color:var(--green-600);background:var(--green-50)}
+.hero-visual{position:relative}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-card{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid rgba(0,0,0,0.07);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+.stat-card.green::before{background:var(--green-400)}
+.stat-card.teal::before{background:var(--teal-400)}
+.stat-card.amber::before{background:var(--amber-200)}
+.stat-card.full{grid-column:1/-1}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--text-dark);margin-bottom:0.2rem}
+.stat-label{font-size:0.8rem;color:var(--text-muted);font-weight:500}
+
+/* SECTIONS */
+.section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{display:inline-block;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-600);margin-bottom:0.75rem}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--text-dark);margin-bottom:0.75rem;line-height:1.15}
+.section-sub{color:var(--text-muted);font-size:1rem;max-width:500px;line-height:1.7}
+
+/* SEARCH */
+.search-wrap{position:relative;max-width:480px;margin:2rem 0}
+.search-wrap input{width:100%;padding:0.9rem 1.25rem 0.9rem 3rem;border-radius:10px;border:1.5px solid rgba(0,0,0,0.12);font-family:'DM Sans',sans-serif;font-size:0.95rem;background:var(--bg-card);outline:none;transition:border 0.2s}
+.search-wrap input:focus{border-color:var(--green-400)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--gray-400);pointer-events:none;font-size:1rem}
+
+/* RECIPE GRID */
+.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:1.5rem}
+.recipe-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid rgba(0,0,0,0.07);overflow:hidden;transition:all 0.2s;cursor:pointer}
+.recipe-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.recipe-img{width:100%;height:180px;object-fit:cover;display:block;background:linear-gradient(135deg,var(--green-50),var(--teal-50));font-size:3rem;display:flex;align-items:center;justify-content:center}
+.recipe-body{padding:1.25rem}
+.recipe-tags{display:flex;gap:0.4rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.tag{font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:20px;background:var(--green-50);color:var(--green-600)}
+.recipe-body h3{font-size:1rem;font-weight:600;margin-bottom:0.4rem;color:var(--text-dark)}
+.recipe-body p{font-size:0.875rem;color:var(--text-muted);line-height:1.55}
+.recipe-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--gray-50)}
+.recipe-meta{font-size:0.78rem;color:var(--text-muted)}
+.save-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0;transition:transform 0.15s}
+.save-btn:hover{transform:scale(1.2)}
+.hidden{display:none!important}
+
+/* MEAL SECTION */
+.meal-section{background:linear-gradient(135deg,#f0f7e8,#e8f5ee)}
+.meal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-top:2rem}
+.meal-card{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid rgba(0,0,0,0.07)}
+.meal-icon{font-size:1.8rem;margin-bottom:0.75rem;display:block}
+.meal-card h3{font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--green-600);margin-bottom:0.5rem}
+.meal-card p{font-size:0.9rem;color:var(--text-mid);font-weight:500;margin-bottom:0.4rem}
+.meal-card small{font-size:0.78rem;color:var(--text-muted)}
+
+/* NUTRITION SECTION */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
+.blog-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid rgba(0,0,0,0.07);overflow:hidden;transition:all 0.2s}
+.blog-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.08)}
+.blog-img-wrap{height:160px;background:linear-gradient(135deg,var(--teal-50),var(--green-50));display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.blog-body{padding:1.25rem}
+.blog-body h3{font-size:0.95rem;font-weight:600;color:var(--text-dark);margin-bottom:0.5rem}
+.blog-body p{font-size:0.85rem;color:var(--text-muted);line-height:1.6}
+.read-more{display:inline-block;margin-top:0.75rem;font-size:0.8rem;font-weight:600;color:var(--green-600);text-decoration:none}
+.read-more:hover{text-decoration:underline}
+
+/* DASHBOARD */
+.dashboard-section{background:var(--gray-50)}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-top:2rem}
+.dash-card{background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid rgba(0,0,0,0.07)}
+.dash-card h3{font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:0.75rem}
+.dash-card .big-num{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--text-dark)}
+.progress-bar{height:8px;background:var(--gray-50);border-radius:10px;overflow:hidden;margin-top:0.75rem;border:1px solid var(--gray-100)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal-400),var(--green-400));border-radius:10px;transition:width 1s ease}
+.plan-list{list-style:none;margin-top:0.5rem}
+.plan-list li{font-size:0.85rem;color:var(--text-mid);padding:0.35rem 0;border-bottom:1px solid var(--gray-50);display:flex;align-items:center;gap:0.5rem}
+.check{color:var(--teal-400);font-weight:700}
+
+/* COMMUNITY */
+.community-section{}
+.forum{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;max-width:680px}
+.post{background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid rgba(0,0,0,0.07);padding:1.25rem}
+.post-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--green-50);border:1.5px solid rgba(59,109,17,0.2);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:var(--green-600);flex-shrink:0}
+.post-header h4{font-size:0.875rem;font-weight:600;color:var(--text-dark)}
+.post-header span{font-size:0.75rem;color:var(--text-muted)}
+.post p{font-size:0.875rem;color:var(--text-mid);line-height:1.6}
+.comment-box{display:flex;gap:0.75rem;margin-top:1.5rem;max-width:680px}
+.comment-box input{flex:1;padding:0.8rem 1.1rem;border-radius:10px;border:1.5px solid rgba(0,0,0,0.12);font-family:'DM Sans',sans-serif;font-size:0.9rem;background:var(--bg-card);outline:none;transition:border 0.2s}
+.comment-box input:focus{border-color:var(--green-400)}
+
+/* FOOTER */
+footer{background:var(--text-dark);color:#fff;padding:3rem 2rem 1.5rem}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+footer .logo{font-size:1.3rem;margin-bottom:0.75rem;display:block}
+footer p{font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.7}
+footer h4{font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:0.9rem}
+footer ul{list-style:none}
+footer ul li{margin-bottom:0.5rem}
+footer ul a{font-size:0.875rem;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s}
+footer ul a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-bottom p{font-size:0.8rem;color:rgba(255,255,255,0.35)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem}
+  .hero-visual{order:-1}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .stat-card.full{grid-column:auto}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+}
+@media(max-width:480px){
+  .hero{padding:5rem 1.25rem 3rem}
+  .section{padding:3.5rem 1.25rem}
+  .hero-actions{flex-direction:column}
+  .btn-primary,.btn-outline{text-align:center;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Cook<span>mmunity</span></div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#recipes">Recipes</a>
+      <a href="#meals">Meal Guides</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#community" class="nav-cta">Community</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#recipes">Recipes</a>
+  <a href="#meals">Meal Guides</a>
+  <a href="#nutrition">Nutrition</a>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#community">Community</a>
+</div>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">🌿 Wellness starts in the kitchen</div>
+      <h1>Build Your <em>Immunity</em> Through Food</h1>
+      <p>Discover recipes, follow expert meal guides, and connect with a community that believes food is medicine.</p>
+      <div class="hero-actions">
+        <a href="#recipes" class="btn-primary">🍃 Explore Recipes</a>
+        <a href="#community" class="btn-outline">Join Community</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-stats">
+        <div class="stat-card green">
+          <div class="stat-num">280+</div>
+          <div class="stat-label">Healthy Recipes</div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-num">12k</div>
+          <div class="stat-label">Community Members</div>
+        </div>
+        <div class="stat-card amber full">
+          <div class="stat-num">Weekly Meal Plans</div>
+          <div class="stat-label">Balanced, dietitian-approved, easy to follow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section id="recipes" class="section">
+  <div class="container">
+    <span class="section-label">🍽 Recipe Library</span>
+    <h2 class="section-title">Featured Recipes</h2>
+    <p class="section-sub">Searchable, nutrient-packed recipes curated for immunity and everyday wellness.</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search recipes, ingredients…" />
+    </div>
+    <div class="recipe-grid" id="recipeGrid">
+      <div class="recipe-card" data-title="green smoothie">
+        <div class="recipe-img">🥤</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Breakfast</span><span class="tag">Vegan</span></div>
+          <h3>Green Immunity Smoothie</h3>
+          <p>Spinach, banana, ginger & turmeric — the ultimate morning immunity boost.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 5 min &nbsp;·&nbsp; 🌱 Easy</span>
+            <button class="save-btn" title="Save recipe" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="recipe-card" data-title="quinoa salad">
+        <div class="recipe-img">🥗</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Lunch</span><span class="tag">Gluten-Free</span></div>
+          <h3>Power Quinoa Salad</h3>
+          <p>Crisp veggies, plant protein and a lemon-tahini dressing for a strong immune system.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 15 min &nbsp;·&nbsp; 🌱 Easy</span>
+            <button class="save-btn" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="recipe-card" data-title="turmeric soup">
+        <div class="recipe-img">🍲</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Dinner</span><span class="tag">Anti-Inflammatory</span></div>
+          <h3>Golden Turmeric Soup</h3>
+          <p>Warm your body and strengthen immunity with this anti-inflammatory golden bowl.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 30 min &nbsp;·&nbsp; 🌿 Medium</span>
+            <button class="save-btn" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="recipe-card" data-title="berry oatmeal">
+        <div class="recipe-img">🫐</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Breakfast</span><span class="tag">High Fiber</span></div>
+          <h3>Berry Chia Oatmeal</h3>
+          <p>Antioxidant-rich berries with chia seeds and oats for lasting energy all morning.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 10 min &nbsp;·&nbsp; 🌱 Easy</span>
+            <button class="save-btn" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="recipe-card" data-title="stir fry tofu">
+        <div class="recipe-img">🥦</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Dinner</span><span class="tag">Vegan</span></div>
+          <h3>Veggie Stir-Fry with Tofu</h3>
+          <p>A quick, colorful stir-fry loaded with vitamins, plant protein, and bold garlic-ginger sauce.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 20 min &nbsp;·&nbsp; 🌱 Easy</span>
+            <button class="save-btn" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+      <div class="recipe-card" data-title="ginger lemon tea">
+        <div class="recipe-img">🍵</div>
+        <div class="recipe-body">
+          <div class="recipe-tags"><span class="tag">Drinks</span><span class="tag">Detox</span></div>
+          <h3>Ginger Lemon Detox Tea</h3>
+          <p>A soothing daily ritual — fresh ginger, lemon and honey to keep illness at bay.</p>
+          <div class="recipe-footer">
+            <span class="recipe-meta">⏱ 5 min &nbsp;·&nbsp; 🌱 Easy</span>
+            <button class="save-btn" onclick="this.textContent=this.textContent==='🤍'?'💚':'🤍'">🤍</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p id="noResults" class="hidden" style="color:var(--text-muted);margin-top:2rem;font-size:0.95rem;">No recipes found. Try a different search!</p>
+  </div>
+</section>
+
+<!-- MEAL GUIDES -->
+<section id="meals" class="section meal-section">
+  <div class="container">
+    <span class="section-label">📅 Meal Guides</span>
+    <h2 class="section-title">Weekly Meal Plan</h2>
+    <p class="section-sub">Curated daily meal plans designed around nutrition science and real-life ease.</p>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <span class="meal-icon">🌅</span>
+        <h3>Breakfast</h3>
+        <p>Berry Chia Oatmeal</p>
+        <small>430 kcal · High fiber · Antioxidants</small>
+      </div>
+      <div class="meal-card">
+        <span class="meal-icon">☀️</span>
+        <h3>Lunch</h3>
+        <p>Power Quinoa Salad</p>
+        <small>520 kcal · High protein · Gluten-free</small>
+      </div>
+      <div class="meal-card">
+        <span class="meal-icon">🌙</span>
+        <h3>Dinner</h3>
+        <p>Veggie Stir-Fry with Tofu</p>
+        <small>480 kcal · Plant-based · Vitamin-rich</small>
+      </div>
+      <div class="meal-card">
+        <span class="meal-icon">🍎</span>
+        <h3>Snacks</h3>
+        <p>Apple slices + almond butter</p>
+        <small>210 kcal · Healthy fats · Natural sugars</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUTRITION TIPS -->
+<section id="nutrition" class="section">
+  <div class="container">
+    <span class="section-label">💡 Nutrition Tips</span>
+    <h2 class="section-title">Expert Wellness Guides</h2>
+    <p class="section-sub">Learn what your body needs and how food can be your greatest ally.</p>
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-img-wrap">💧</div>
+        <div class="blog-body">
+          <h3>Hydration & Immunity</h3>
+          <p>Discover how staying well-hydrated keeps your body's defense systems running at peak performance.</p>
+          <a href="#" class="read-more">Read more →</a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img-wrap">🍊</div>
+        <div class="blog-body">
+          <h3>Top Vitamins for Healthy Living</h3>
+          <p>Vitamins C, D, and zinc are your immunity dream team. Learn where to find them in whole foods.</p>
+          <a href="#" class="read-more">Read more →</a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img-wrap">🦠</div>
+        <div class="blog-body">
+          <h3>Gut Health & Immunity</h3>
+          <p>Your gut houses 70% of your immune system. Discover the best probiotic and prebiotic foods to eat.</p>
+          <a href="#" class="read-more">Read more →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section dashboard-section">
+  <div class="container">
+    <span class="section-label">📊 Your Dashboard</span>
+    <h2 class="section-title">Track Your Wellness</h2>
+    <p class="section-sub">Stay motivated with a personal overview of your saved recipes, meal plan, and progress.</p>
+    <div class="dashboard-grid" style="margin-top:2rem">
+      <div class="dash-card">
+        <h3>Saved Recipes</h3>
+        <div class="big-num">5</div>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem">recipes in your collection</p>
+      </div>
+      <div class="dash-card">
+        <h3>Meal Streak</h3>
+        <div class="big-num">🔥 6</div>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem">days of healthy eating</p>
+      </div>
+      <div class="dash-card">
+        <h3>Week 2 Plan Progress</h3>
+        <ul class="plan-list">
+          <li><span class="check">✓</span>Monday – Smoothie Bowl</li>
+          <li><span class="check">✓</span>Tuesday – Quinoa Salad</li>
+          <li><span class="check">✓</span>Wednesday – Turmeric Soup</li>
+          <li style="color:var(--text-muted)">⬡ Thursday – Tofu Stir-Fry</li>
+          <li style="color:var(--text-muted)">⬡ Friday – Detox Tea</li>
+        </ul>
+      </div>
+      <div class="dash-card">
+        <h3>Overall Progress</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem">70% of your weekly goal complete</p>
+        <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem">Keep going — you're doing great! 🌿</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community" class="section">
+  <div class="container">
+    <span class="section-label">💬 Community</span>
+    <h2 class="section-title">Community Forum</h2>
+    <p class="section-sub">Ask questions, share recipes, and get inspired by thousands of wellness-focused members.</p>
+    <div class="forum" id="forum">
+      <div class="post">
+        <div class="post-header">
+          <div class="avatar">HJ</div>
+          <div>
+            <h4>@HealthyJane</h4>
+            <span>2 hours ago</span>
+          </div>
+        </div>
+        <p>Just tried the Turmeric Soup — amazing flavor and so easy to make! Highly recommend doubling the ginger. 🍲</p>
+      </div>
+      <div class="post">
+        <div class="post-header">
+          <div class="avatar" style="background:#E1F5EE;color:#0F6E56;border-color:rgba(15,110,86,0.2)">FS</div>
+          <div>
+            <h4>@FitSam</h4>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <p>Anyone have a good vegan breakfast smoothie? Looking for something high in protein without protein powder!</p>
+      </div>
+    </div>
+    <div class="comment-box">
+      <input type="text" id="commentInput" placeholder="Share a recipe tip, question, or experience…" />
+      <button class="btn-primary" id="postBtn">Post</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">Cookmmunity</div>
+        <p>Empowering healthy living through community, expert nutrition guidance, and food that heals.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#recipes">Recipes</a></li>
+          <li><a href="#meals">Meal Guides</a></li>
+          <li><a href="#nutrition">Nutrition</a></li>
+          <li><a href="#community">Community</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Cookmmunity. All rights reserved.</p>
+      <p>Made with 🌿 for wellness</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
+
+const searchInput=document.getElementById('searchInput');
+const cards=document.querySelectorAll('.recipe-card');
+const noResults=document.getElementById('noResults');
+searchInput.addEventListener('input',()=>{
+  const q=searchInput.value.toLowerCase().trim();
+  let visible=0;
+  cards.forEach(c=>{
+    const match=c.dataset.title.includes(q)||c.querySelector('h3').textContent.toLowerCase().includes(q)||c.querySelector('p').textContent.toLowerCase().includes(q);
+    c.classList.toggle('hidden',q&&!match);
+    if(!q||match)visible++;
+  });
+  noResults.classList.toggle('hidden',visible>0);
+});
+
+const postBtn=document.getElementById('postBtn');
+const commentInput=document.getElementById('commentInput');
+const forum=document.getElementById('forum');
+const initials=name=>name.replace('@','').slice(0,2).toUpperCase();
+postBtn.addEventListener('click',()=>{
+  const text=commentInput.value.trim();
+  if(!text)return;
+  const colors=[['#EAF3DE','#3B6D11','rgba(59,109,17,0.2)'],['#E1F5EE','#0F6E56','rgba(15,110,86,0.2)'],['#FAEEDA','#854F0B','rgba(133,79,11,0.2)']];
+  const c=colors[forum.children.length%colors.length];
+  const post=document.createElement('div');
+  post.className='post';
+  post.innerHTML=`<div class="post-header"><div class="avatar" style="background:${c[0]};color:${c[1]};border-color:${c[2]}">ME</div><div><h4>@You</h4><span>Just now</span></div></div><p>${text.replace(/</g,'&lt;')}</p>`;
+  forum.appendChild(post);
+  commentInput.value='';
+  post.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+commentInput.addEventListener('keydown',e=>{if(e.key==='Enter')postBtn.click()});
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  const el=document.querySelector(a.getAttribute('href'));
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
